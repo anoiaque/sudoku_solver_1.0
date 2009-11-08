@@ -1,31 +1,27 @@
 require 'sudoku_extensions.rb'
 
 class Sudoku 
-  @elements =[]
-  @blocks =[]
-  @lines =[]
-  @columns =[]
-  
+
   attr_accessor :elements,:blocks,:lines,:columns
   
   def solve 
     change = false
-     (1..9).each do |number|
+     
      self.each_element do |e|
+       (1..9).each do |number|
         if number.can_only_be_in? e
           change = true
           e.set_with number
         end
       end
     end
-    self.solve if !self.complete? && change
+    
+    solve if !self.complete? && change
   end
   
   
   def complete?
-   (1..81).each do |c|
-      return false if element(c).empty?
-    end
+   (1..81).each {|c| return false if element(c).empty?}
   end
   
   def == sudoku

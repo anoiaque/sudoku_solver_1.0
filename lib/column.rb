@@ -2,8 +2,7 @@ require "member.rb"
 
 
 class Column < Membre
-  @index = 0 
-  @value = [] 
+
   
   def initialize value,index 
     @value = value

@@ -2,31 +2,21 @@ require "sudoku.rb"
 require "member.rb"  
 
 class Element < Membre
+
   
-  @sudoku = nil;
-  @index = 0;
-  @line_idx= 0
-  @column_idx = 0
-  @block_idx = 0
+  attr_accessor :value , :block_idx  , :line_idx,:column_idx,:index,:sudoku,:pair,:pair_link
   
-  
-  
-  attr_accessor :value , :block_idx  , :line_idx,:column_idx,:doublon,:doublon_link,:index,:sudoku
-  
-  def can_only_contain? number,member=nil
-    if member.nil?
-      self.can_only_contain?(number,self.block) || self.can_only_contain?(number,self.line) || self. can_only_contain?(number,self.column) 
-    else
-      self.can_contain?(number) &&
-      member.each_element { |e|  break false if (e.can_contain?(number) && (e.index != self.index))}
-    end
+  def can_only_contain? number
+    [block,line,column].each {|member| return true if member.can_only_contain?(number,self)}
+    false
   end
   
   def can_contain? number
+   
     self.empty? && 
-    number.can_be_in?(self.line)&&
-    number.can_be_in?(self.column) &&
-    number.can_be_in?(self.block)
+      number.can_be_in?(line)&&
+      number.can_be_in?(column) &&
+      number.can_be_in?(block)
   end
   
   def empty?
@@ -55,8 +45,9 @@ class Element < Membre
     @line_idx = line_idx
     @column_idx = col_idx
     @block_idx = block_idx
-    @doublon =[]
-    @doublon_link = nil
+    @pair = []
+    @pair_link = nil
+   
   end
   
   

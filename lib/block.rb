@@ -1,11 +1,7 @@
 require "member.rb"  
 
 class Block < Membre
-  @index = 0
-  @lines =[]
-  @columns =[]
-  
-  
+ 
   def can_contain? number
     self.each_line   { |line|  return false if !line.can_contain? number }
     self.each_column { |col |  return false if !col.can_contain? number }

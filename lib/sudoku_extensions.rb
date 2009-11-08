@@ -11,6 +11,7 @@ class Fixnum
     element.can_only_contain? self
   end
   def can_only_be_in_two_elements? member
+   
     member.only_two_elements_can_contain? self
   end
   def can_only_be_in_element_block? element
@@ -34,6 +35,7 @@ class Array
     sudoku.blocks=to_blocks sudoku
     sudoku
   end
+  
   def count element
     cpt = 0;
     self.each {|e| cpt+=1 if e == element }
